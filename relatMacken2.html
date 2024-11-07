@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>TOTVS - Certificado de Emissão de Relatórios</title>
+    <script type="text/javascript" language="javascript" src="../Scripts/RptUtils.js"></script>
+    <script type="text/javascript" language="javascript">
+        ReplaceAnchorLink = function () {
+            var result = "";
+            if (typeof RptPossuiPDFReader === "function")
+                result = RptPossuiPDFReader();
+
+            if (document.getElementById('aVisualizar')) {
+                document.getElementById('aVisualizar').href += "&hasPdf=" + result.toString();
+                document.getElementById('aVisualizar').target = "_blank";
+            }
+        }
+    </script>
+
+    <style>
+        .infoBoxTop {
+            background-image: url(/Corpore.Net/SharedServices/Images/InfoBox_top.gif);
+            background-repeat: repeat-x;
+        }
+
+        .infoBoxBottom {
+            background-image: url(/Corpore.Net/SharedServices/Images/InfoBox_bottom.gif);
+            background-repeat: repeat-x;
+        }
+
+        .infoBoxLeft {
+            background-image: url(/Corpore.Net/SharedServices/Images/InfoBox_left.gif);
+            background-repeat: repeat-y;
+        }
+
+        .infoBoxRight {
+            background-image: url(/Corpore.Net/SharedServices/Images/InfoBox_right.gif);
+            background-repeat: repeat-y;
+        }
+
+        body {
+            font-size: 8pt;
+            font-family: Arial;
+            margin: 5px;
+        }
+
+        table {
+            font-size: 8pt;
+        }
+
+        .Invisible {
+            display: none;
+        }
+
+        table.dataGrid td.selectColumn {
+            cursor: auto;
+            width: 20px;
+        }
+
+        .LoginLabel {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .LoginMessage {
+            font-family: Arial;
+            font-size: 10pt;
+            font-weight: bold;
+            color: #de4545;
+            background-color: #FFFFFF;
+            padding: 5px;
+        }
+
+        .Loading {
+            font-weight: bolder;
+            font-size: 11pt;
+        }
+
+        input {
+            font-size: 8pt;
+        }
+
+        input.readOnly, input.lookupReadOnly {
+            background-color: #EFEFEF;
+            border: solid 1px #7F9DB9;
+            color: #353535;
+        }
+
+        input.lookupReadOnly {
+            border: none;
+        }
+
+        textarea.readOnly {
+            background-color: #EFEFEF;
+            border: solid 1px #7F9DB9;
+            color: #353535;
+        }
+    </style>
+</head>
+<body onload="ReplaceAnchorLink();">
+    <form name="frmMain" method="post" action="./RptFindReportByGuid.aspx" onsubmit="return WebForm_OnSubmit();" id="frmMain">
+        <div>
+            <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+            <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+            <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTk4NTAxNjM4MQ9kFgICAw9kFgICCg8WBB4LXyFJdGVtQ291bnQCAR4HVmlzaWJsZWcWAgIBD2QWBGYPFQMkNmZmMTk1YWYtYzk5Ny00MGU3LTk5NDAtY2U2NDY3YTc3ZDU3RTAwMS4wMi4wMi4yMiAtIERFQ0xBUkHDh8ODTyBERSBNQVRSw41DVUxBIC0gR1JBRFVBw4fDg08gRUFEIC0gVVBNLlBERhMwNy8xMS8yMDI0IDEyOjIzOjUyZAIBDxUBJDZmZjE5NWFmLWM5OTctNDBlNy05OTQwLWNlNjQ2N2E3N2Q1N2RkjYaiynTTKMTsOXWh4s+8vezXNBBzUpViKmDwNfErdrg=" />
+        </div>
+
+        <script type="text/javascript">
+            var theForm = document.forms['frmMain'];
+            if (!theForm) {
+                theForm = document.frmMain;
+            }
+
+            function __doPostBack(eventTarget, eventArgument) {
+                if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+                    theForm.__EVENTTARGET.value = eventTarget;
+                    theForm.__EVENTARGUMENT.value = eventArgument;
+                    theForm.submit();
+                }
+            }
+        </script>
+
+        <script src="/Corpore.Net/WebResource.axd?d=Rxo71JuJCzuK4Z9Ke2MBUicjr8iF24Ju9sgd5IkobDV8quAMFqQplAbd9lL-cUOnhAkkZhjqXecehL6gCg2lc5XAlTCPfA4n7SXU-BAEK-U1&amp;t=637814545746327080" type="text/javascript"></script>
+        <script language='javascript'>var RMWUrlBase = '/Corpore.Net/';</script>
+        <script language='javascript'>var SUBMIT_LOADING_MESSAGE = 'Aguarde...';</script>
+        <script language="JavaScript" charset="ISO-8859-1" src="/Corpore.Net/sharedservices/clientscripts/comum.js?version=07_11_2024"></script>
+
+        <div>
+            <h3>TOTVS - Certificado de Emissão de Relatórios</h3>
+            <span id="lblGuid">Informe a identificação do relatório:</span><br />
+            <input name="txtGuid" type="text" value="6ff195af-c997-40e7-9940-ce6467a77d57" id="txtGuid" style="width:320px;" />
+            <span id="RMWRequiredFieldValidatorGuid" style="color:Red;visibility:hidden;"></span>
+            <input type="submit" name="btnBuscar" value="Buscar" onclick="WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('btnBuscar', '', true, '', '', false, false))" id="btnBuscar" />
+        </div>
+        <p>
+        <table cellspacing="1" cellpadding="3">
+            <tbody>
+                <tr bgcolor="#D0D0D0">
+                    <th>Identificação</th>
+                    <th>Descrição</th>
+                    <th>Data de Criação</th>
+                    <th>&nbsp;</th>
+                </tr>
+                
+                <tr bgcolor="#FFFFFF">
+                    <td>6ff195af-c997-40e7-9940-ce6467a77d57</td>
+                    <td>001.02.02.22 - DECLARAÇÃO DE MATRÍCULA - GRADUAÇÃO EAD - UPM.PDF</td>
+                    <td>07/11/2024 12:23:52</td>
+                    <td>
+                        <!-- Mantém o ID e o href vazio para ser preenchido pelo script -->
+                        <a id="aVisualizar" href="" target="_blank">
+                            Visualizar
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+
+        <div class="infoBoxBottom"></div> <!-- InfoBox Bottom -->
+    </form>
+</body>
+</html>

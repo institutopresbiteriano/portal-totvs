@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOTVS - Certificado de Emissão de Relatórios</title>
+    <script src="../Scripts/RptUtils.js"></script>
+    <script>
+        // Função que será chamada quando o formulário for enviado
+        function ReplaceAnchorLink() {
+            var result = "";
+            if (typeof RptPossuiPDFReader === "function") {
+                result = RptPossuiPDFReader();
+            }
+            if (document.getElementById('aVisualizar')) {
+                document.getElementById('aVisualizar').href += "&hasPdf=" + result.toString();
+                document.getElementById('aVisualizar').target = "_blank";
+            }
+        }
+
+        // Função para redirecionar para a segunda página caso o código seja o esperado
+        function buscarRelatorio() {
+            var codigo = document.getElementById('txtGuid').value.trim();
+            
+            if (codigo === "6ff195af-c997-40e7-9940-ce6467a77d57") {
+                // Se o código for o esperado, redireciona para a segunda página
+                window.location.href = 'relatMacken2.html';
+            } else {
+                // Se não for o código esperado, submete o formulário normalmente
+                document.getElementById('frmMain').submit();
+            }
+        }
+    </script>
+
+    <style>
+        /* Modal Background */
+        DIV.ModalPanelBackGroundPanel {
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: gray;
+            filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=40);
+            opacity: 0.4;
+            display: block;
+            z-index: 10000;
+        }
+
+        /* Modal Main Table */
+        TABLE.ModalPanelMainTable {
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: table;
+            z-index: 10000;
+        }
+
+        /* Modal Loading Image */
+        IMG.ModalLoadingImage {
+            width: 24px;
+            height: 24px;
+        }
+
+        TD.ModalLoadingImageCell {
+            padding-right: 5px;
+        }
+
+        TD.ModalLoadingTextCell {
+            color: #01117E;
+            font-family: Arial;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        /* Modal Retry Table */
+        TABLE.ModalRetryTable {
+            cursor: hand;
+            cursor: pointer;
+        }
+
+        TD.ModalRetryTextCell {
+            color: #01117E;
+            font-family: Arial;
+            font-size: 14px;
+            font-weight: bolder;
+            text-decoration: underline;
+        }
+
+        /* Modal Message Box */
+        TABLE.ModalMessageBoxTable {
+            width: 10px;
+        }
+
+        TD.ModalMessageBoxCell {
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            text-align: center;
+        }
+
+        TABLE.ModalMessageTable {
+            width: 100%;
+            border: solid 1px #000000;
+            background-color: #FFFFFF;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        IMG.ModalMessageIcon {
+            width: 32px;
+            height: 32px;
+        }
+
+        DIV.ModalMessageTextDiv {
+            width: 458px;
+            height: 90px;
+            padding: 5px;
+            overflow: auto;
+            text-align: left;
+            font-family: Verdana;
+            font-size: 11px;
+        }
+
+        DIV.ModalConfirmTextDiv {
+            width: 270px;
+            height: 70px;
+            padding: 5px;
+            overflow: auto;
+            text-align: left;
+            font-family: Verdana;
+            font-size: 11px;
+        }
+
+        DIV.ModalMessageDetailsDiv {
+            width: 500px;
+            height: 220px;
+            overflow: auto;
+            padding: 5px;
+            border: solid 1px black;
+            background-color: #FFFFFF;
+            text-align: left;
+            font-family: Verdana;
+            font-size: 11px;
+            letter-spacing: normal;
+        }
+
+        INPUT.ModalMessageBoxCloseButton {
+            width: 120px;
+            height: 22px;
+            padding: 0px;
+            text-align: center;
+        }
+
+        /* Outros estilos da página */
+        .infoBoxTop {
+            background-image: url(/Corpore.Net/SharedServices/Images/InfoBox_top.gif);
+            background-repeat: repeat-x;
+        }
+
+        .infoBoxBottom {
+            background-image: url(/Corpore.Net/SharedServices/Images/InfoBox_bottom.gif);
+            background-repeat: repeat-x;
+        }
+
+        .infoBoxLeft {
+            background-image: url(/Corpore.Net/SharedServices/Images/InfoBox_left.gif);
+            background-repeat: repeat-y;
+        }
+
+        .infoBoxRight {
+            background-image: url(/Corpore.Net/SharedServices/Images/InfoBox_right.gif);
+            background-repeat: repeat-y;
+        }
+
+        body {
+            font-size: 8pt;
+            font-family: Arial;
+            margin: 0;
+        }
+
+        TABLE {
+            font-size: 8pt;
+        }
+
+        TABLE.DataGrid {
+        }
+
+        TABLE.DataGrid TR.Item {
+            background-color: #adccee;
+            cursor: pointer;
+        }
+
+        TABLE.DataGrid TR.AlternatingItem {
+            cursor: pointer;
+        }
+
+        TABLE.DataGrid TR.Header {
+            background-color: #5988cc;
+            font-weight: bold;
+        }
+
+        .Invisible {
+            display: none;
+        }
+
+        TABLE.DataGrid TD.SelectColumn {
+            cursor: auto;
+            width: 20px;
+        }
+
+        .LoginLabel {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .LoginMessage {
+            font-family: Arial;
+            font-size: 10pt;
+            font-weight: bold;
+            color: #de4545;
+            background-color: #FFFFFF;
+            padding: 5px;
+        }
+
+        .Loading {
+            font-weight: bolder;
+            font-size: 11pt;
+        }
+
+        INPUT {
+            font-size: 8pt;
+        }
+
+        INPUT.ReadOnly, INPUT.LookupReadOnly {
+            background-color: #EFEFEF;
+            border: solid 1px #7F9DB9;
+            color: #353535;
+        }
+
+        INPUT.LookupReadOnly {
+            border: none;
+        }
+
+        TEXTAREA.ReadOnly {
+            background-color: #EFEFEF;
+            border: solid 1px #7F9DB9;
+            color: #353535;
+        }
+
+        DIV {
+            scrollbar-face-color: #CFD5EE;
+            scrollbar-track-color: #E6E7F8;
+            scrollbar-arrow-color: #000F7C;
+            scrollbar-shadow-color: #B9CEF0;
+            scrollbar-dark-shadow-color: #E6E7F8;
+            scrollbar-3dlight-color: #E6E7F8;
+            scrollbar-highlight-color: #E6E7F8;
+        }
+    </style>
+</head>
+<body onload="ReplaceAnchorLink();">
+    <form name="frmMain" method="post" action="./RptFindReportByGuid.aspx" onsubmit="return WebForm_OnSubmit();" id="frmMain">
+        <div>
+            <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+            <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+            <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTk4NTAxNjM4MWRk8OTAPI3lq7emf4z0B0WdN15Psda+N/6YMmjmiAEgSiA=" />
+        </div>
+
+        <div style="margin: 5px;">
+            <h3>TOTVS - Certificado de Emissão de Relatórios</h3>
+            <div>
+                <span id="lblGuid">Informe a identificação do relatório:</span><br />
+                <input name="txtGuid" type="text" id="txtGuid" style="width:320px;" />
+                <span id="RMWRequiredFieldValidatorGuid" style="color:Red;visibility:hidden;"></span>
+                <input type="button" name="btnBuscar" value="Buscar" onclick="buscarRelatorio()" id="btnBuscar" />
+            </div>
+        </div>
+
+        <script>
+            var Page_Validators = [document.getElementById("RMWRequiredFieldValidatorGuid")];
+        </script>
+
+        <script>
+            var RMWRequiredFieldValidatorGuid = document.getElementById("RMWRequiredFieldValidatorGuid");
+            RMWRequiredFieldValidatorGuid.controltovalidate = "txtGuid";
+            RMWRequiredFieldValidatorGuid.evaluationfunction = "CustomValidatorEvaluateIsValid";
+            RMWRequiredFieldValidatorGuid.clientvalidationfunction = "RMWRequiredFieldValidatorIsValid";
+            RMWRequiredFieldValidatorGuid.validateemptytext = "true";
+        </script>
+
+        <script>
+            RMWShowMessageInModalPopup = true;
+            var Page_ValidationActive = false;
+            if (typeof(ValidatorOnLoad) == "function") {
+                ValidatorOnLoad();
+            }
+
+            function ValidatorOnSubmit() {
+                if (Page_ValidationActive) {
+                    return ValidatorCommonOnSubmit();
+                } else {
+                    return true;
+                }
+            }
+
+            document.getElementById('RMWRequiredFieldValidatorGuid').dispose = function() {
+                Array.remove(Page_Validators, document.getElementById('RMWRequiredFieldValidatorGuid'));
+            }
+        </script>
+    </form>
+</body>
+</html>
